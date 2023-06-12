@@ -13,17 +13,17 @@ app.listen (port, () =>{
     console.log(`Escuchando puerto ${port}`);
 })
 //GET ALL
-app.get('/Vivienda', async (req,res) => {
+app.get('/ViviendaGetAll', async (req,res) => {
     let Vivienda = await ViviendaServices.getAll();
     res.status(200).send(Vivienda)
 })
 // GET BY ID
-app.get('/Vivienda/:id', async (req,res) => {
+app.get('/ViviendaGetById/:id', async (req,res) => {
     let Vivienda = await ViviendaServices.getById(req.params.id);
     res.status(200).send(Vivienda)
 })
 // INSERT
-app.post('/Vivienda', async(req,res) =>{
+app.post('/ViviendaInsert', async(req,res) =>{
 
     console.log("En post, req:", req)
     try{
@@ -35,7 +35,7 @@ app.post('/Vivienda', async(req,res) =>{
     }
 })
 //UPDATE
-app.put('/Vivienda',async (req,res) => {
+app.put('/ViviendaUpdate',async (req,res) => {
     console.log("En update, req:", req)
     try{
         await ViviendaServices.update(req.body)
@@ -46,7 +46,7 @@ app.put('/Vivienda',async (req,res) => {
     }
 })
 //
-app.delete ('/Vivienda/:id',async (req,res) => {
+app.delete ('/ViviendaDelete/:id',async (req,res) => {
     console.log("En delete, req:", req)
     try{
         await ViviendaServices.deleteById(req.params.id)
