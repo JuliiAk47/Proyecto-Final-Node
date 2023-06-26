@@ -34,12 +34,14 @@ class ViviendaServices {
     }
 
     static insert = async(Vivienda) =>{
+        console.log("entro a la funcion");
             let rowsAffected = 0;
             console.log('Estoy en: ViviendaServices.insert(Vivienda)');
             try{
                 let pool = await sql.connect(config);
                 let result = await pool.request()
                     .input('pDireccion',Vivienda.Direccion)
+                    .input('pIdUsuario',Vivienda.IdUsuario)
                     .input('pBarrio',Vivienda.Barrio)
                     .input('pTipoVivienda',Vivienda.TipoVivienda)
                     .input('pMetrosCuadradosTotales',Vivienda.MetrosCuadradosTotales)
@@ -50,22 +52,29 @@ class ViviendaServices {
                     .input('pAmbientes',Vivienda.Ambientes)
                     .input('pDescripcion',Vivienda.Descripcion)
                     .input('pImagen',Vivienda.Imagen)
-                    .query('INSERT INTO Vivienda (Direccion, Barrio, TipoVivienda , MetrosCuadradosTotales, MetrosCuadradosCubierta, Luminosidad, Baños, Cocheras, Ambientes, Descripcion, Imagen) VALUES (@pDireccion, @pBarrio, @pTipoVivienda, @pMetrosCuadradosTotales, @pMetrosCuadradosCubierta, @pLuminosidad, @pBaños, @pCocheras, @pAmbientes, @pDescripcion, @pImagen)');
+                    .query('INSERT INTO Vivienda (IdUsuario,Direccion, Barrio, TipoVivienda , MetrosCuadradosTotales, MetrosCuadradosCubierta, Luminosidad, Baños, Cocheras, Ambientes, Descripcion, Imagen) VALUES (@pIdUsuario,@pDireccion, @pBarrio, @pTipoVivienda, @pMetrosCuadradosTotales, @pMetrosCuadradosCubierta, @pLuminosidad, @pBaños, @pCocheras, @pAmbientes, @pDescripcion, @pImagen)');
                 rowsAffected = result.rowsAffected;
-            } catch (error) {
+                console.log("query");
+                console.log(rowsAffected);
+            } catch (error) {                
                 console.log(error)
+                console.log("error");
+                console.log();
+
             }
             return rowsAffected;
             } 
     
-    static update = async (Vivienda) => {
+    static update = async (id, Vivienda) => {
         let rowsAffected = 0;
-        const{Id,Direccion,Barrio,TipoVivienda,MetrosCuadradosTotales,MetrosCuadradosCubierta,Luminosidad,Baños,Cocheras,Ambientes,Descripcion,Imagen} = Vivienda;
+        //const Vivienda ={Id,Direccion,Barrio,TipoVivienda,MetrosCuadradosTotales,MetrosCuadradosCubierta,Luminosidad,Baños,Cocheras,Ambientes,Descripcion,Imagen} ;
            
             console.log('Estoy en: ViviendaServices.update(Vivienda)');
             try{
                 let pool = await sql.connect(config);
                 let result = await pool.request()
+                .input('pId',id)
+                .input('pIdUsuario',Vivienda.IdUsuario)
                 .input('pDireccion',Vivienda.Direccion)
                 .input('pBarrio',Vivienda.Barrio)
                 .input('pTipoVivienda',Vivienda.TipoVivienda)
@@ -78,7 +87,7 @@ class ViviendaServices {
                 .input('pDescripcion',Vivienda.Descripcion)
                 .input('pImagen',Vivienda.Imagen)
 
-                    .query('UPDATE Pizzas SET Direccion = @pDireccion , Barrio= @pBarrio, TipoVivienda = @pTipoVivienda,MetrosCuadradosTotales=@pMetrosCuadradosTotales,MetrosCuadradosCubierta=@pMetrosCuadradosCubierta,Luminosidad=@pLuminosidad,Baños=@pBaños,Cocheras=@pCocheras,Ambientes=@pAmbientes Descripcion = @pDescripcion,Imagen=@pImagen WHERE id = @pId;');
+                    .query('UPDATE Vivienda SET IdUsuario=@pIdUsuario, Direccion = @pDireccion , Barrio= @pBarrio, TipoVivienda = @pTipoVivienda,MetrosCuadradosTotales=@pMetrosCuadradosTotales,MetrosCuadradosCubierta=@pMetrosCuadradosCubierta,Luminosidad=@pLuminosidad,Baños=@pBaños,Cocheras=@pCocheras,Ambientes=@pAmbientes, Descripcion = @pDescripcion,Imagen=@pImagen WHERE id = @pId;');
                 rowsAffected = result.rowsAffected;
             } catch (error) {
                 console.log(error)

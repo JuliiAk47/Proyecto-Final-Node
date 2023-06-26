@@ -15,15 +15,15 @@ export default config;
 
 /*USE [master]
 GO
-CREATE LOGIN [Pizzas] WITH PASSWORD=N'Pizzas', DEFAULT_DATABASE=[DAI-PIZZAS], CHECK_EXPIRATION=OFF,
+CREATE LOGIN [proyectoUser] WITH PASSWORD=N'proyecto', DEFAULT_DATABASE=[ProyectoFinal-Inmigracion], CHECK_EXPIRATION=OFF,
 CHECK_POLICY=OFF
 GO
 
-USE [DAI-Pizzas]
+USE [ProyectoFinal-Inmigracion]
 GO
-CREATE USER [Pizzas] FOR LOGIN [Pizzas]
+CREATE USER [proyectoUser] FOR LOGIN [proyectoUser]
 GO
-USE [DAI-Pizzas]
+USE [ProyectoFinal-Inmigracion]
 GO
-ALTER ROLE [db_owner] ADD MEMBER [Pizzas]
+ALTER ROLE [db_owner] ADD MEMBER [proyectoUser]
 GO*/

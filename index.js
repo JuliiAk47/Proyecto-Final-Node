@@ -13,20 +13,22 @@ app.listen (port, () =>{
     console.log(`Escuchando puerto ${port}`);
 })
 //GET ALL
-app.get('/ViviendaGetAll', async (req,res) => {
+app.get('/Vivienda', async (req,res) => {
     let Vivienda = await ViviendaServices.getAll();
     res.status(200).send(Vivienda)
 })
 // GET BY ID
-app.get('/ViviendaGetById/:id', async (req,res) => {
+app.get('/Vivienda/:id', async (req,res) => {
+    console.log(req.params.id)
     let Vivienda = await ViviendaServices.getById(req.params.id);
     res.status(200).send(Vivienda)
 })
 // INSERT
-app.post('/ViviendaInsert', async(req,res) =>{
+app.post('/Vivienda', async(req,res) =>{
 
     console.log("En post, req:", req)
     try{
+        console.log("entra viviendas Insert (index!)")
         await ViviendaServices.insert(req.body)
         res.status(200).json({message : 'Vivienda creada'});
     } catch (error){
@@ -35,10 +37,10 @@ app.post('/ViviendaInsert', async(req,res) =>{
     }
 })
 //UPDATE
-app.put('/ViviendaUpdate',async (req,res) => {
+app.put('/Vivienda/:id',async (req,res) => {
     console.log("En update, req:", req)
     try{
-        await ViviendaServices.update(req.body)
+        await ViviendaServices.update(req.params.id, req.body)
         res.status(200).json({message : 'Vivienda actualizada'});
     } catch (error){
         console.error(error);
@@ -46,7 +48,7 @@ app.put('/ViviendaUpdate',async (req,res) => {
     }
 })
 //
-app.delete ('/ViviendaDelete/:id',async (req,res) => {
+app.delete ('/Vivienda/:id',async (req,res) => {
     console.log("En delete, req:", req)
     try{
         await ViviendaServices.deleteById(req.params.id)
